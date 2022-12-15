@@ -68,8 +68,8 @@ env:
   DIY_P2_SH: router-config/lede-master/diy-part2.sh
   TZ: America/New_York
 
-jobs:
-  build:
+  
+build:
     runs-on: ubuntu-22.04
     if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
 
