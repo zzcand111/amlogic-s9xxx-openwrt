@@ -68,8 +68,8 @@ env:
   DIY_P2_SH: router-config/lede-master/diy-part2.sh
   TZ: America/New_York
 
-  
-build:
+jobs:  
+  build:
     runs-on: ubuntu-22.04
     if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
 
@@ -170,7 +170,7 @@ build:
           openwrt_size: ${{ inputs.openwrt_size }}
 
       - name: Upload the packaged firmware to Release
-        uses: ncipollo/release-action@main
+        uses: softprops/action-gh-release@v1
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: ${{ steps.compile.outputs.build_tag }}
