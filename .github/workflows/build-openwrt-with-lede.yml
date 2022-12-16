@@ -178,4 +178,10 @@ jobs:
           allowUpdates: true
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+         body: |
+            This is Armbian image for Amlogic s9xxx tv box
+            * Firmware information
+            Default username: root
+            Default password: 1234
+            Install command: armbian-install
+            Update command: armbian-updat
