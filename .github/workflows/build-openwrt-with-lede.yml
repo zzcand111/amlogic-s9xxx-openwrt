@@ -169,16 +169,16 @@ jobs:
           auto_kernel: ${{ inputs.auto_kernel }}
           openwrt_size: ${{ inputs.openwrt_size }}
 
-      - name: Upload the packaged firmware to Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+     - name: Upload Armbian image to Release
+        id: release
+        uses: ncipollo/release-action@v1
+        if: steps.rebuild.outputs.status == 'success' && !cancelled()
         with:
-          tag: ${{ steps.compile.outputs.build_tag }}
-          artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+          tag: Armbian_Aml_${{ env.ARMBIAN_RELEASE }}_${{ env.FILE_DATE }}
+          artifacts: ${{ env.FILEPATH }}/*
           allowUpdates: true
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         body: |
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
             This is Armbian image for Amlogic s9xxx tv box
             * Firmware information
             Default username: root
