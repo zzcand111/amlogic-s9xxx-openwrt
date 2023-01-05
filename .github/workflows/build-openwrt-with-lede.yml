@@ -168,20 +168,9 @@ jobs:
           openwrt_kernel: ${{ inputs.openwrt_kernel }}
           auto_kernel: ${{ inputs.auto_kernel }}
           openwrt_size: ${{ inputs.openwrt_size }}
-
-     - name: Upload Armbian image to Release
-        id: release
-        uses: ncipollo/release-action@v1
-        if: steps.rebuild.outputs.status == 'success' && !cancelled()
+      - name: Upload firmware directory
+        uses: actions/upload-artifact@main
+        if: steps.organize.outputs.status == 'success' && !cancelled()
         with:
-          tag: Armbian_Aml_${{ env.ARMBIAN_RELEASE }}_${{ env.FILE_DATE }}
-          artifacts: ${{ env.FILEPATH }}/*
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            This is Armbian image for Amlogic s9xxx tv box
-            * Firmware information
-            Default username: root
-            Default password: 1234
-            Install command: armbian-install
-            Update command: armbian-updat
+         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+         path: ${{ env.FIRMWARE }} 
